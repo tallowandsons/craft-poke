@@ -1,0 +1,47 @@
+{
+  "name": "tallowandsons/craft-poke",
+  "type": "craft-plugin",
+  "license": "proprietary",
+  "support": {
+    "email": "support@tallowandsons.com",
+    "issues": "https://github.com/tallowandsons/craft-poke/issues?state=open",
+    "source": "https://github.com/tallowandsons/craft-poke",
+    "docs": "https://github.com/tallowandsons/craft-poke",
+    "rss": "https://github.com/tallowandsons/craft-poke/releases.atom"
+  },
+  "require": {
+    "php": ">=8.2",
+    "craftcms/cms": "^5.7.0"
+  },
+  "require-dev": {
+    "craftcms/ecs": "dev-main",
+    "craftcms/phpstan": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "tallowandsons\\poke\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "poke",
+    "name": "Poke",
+    "developer": "tallowandsons",
+    "documentationUrl": "https://github.com/tallowandsons/craft-poke",
+    "class": "tallowandsons\\poke\\Poke"
+  },
+  "scripts": {
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix",
+    "phpstan": "phpstan --memory-limit=1G"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}
