@@ -5,7 +5,12 @@ namespace tallowandsons\poke;
 use Craft;
 use craft\base\Model;
 use craft\base\Plugin;
-use tallowandsons\poke\models\Settings;
+use craft\events\PluginEvent;
+use craft\events\SectionEvent;
+use craft\services\Entries;
+use craft\services\Plugins;
+use tallowandsons\craftpermissionreminder\models\Settings;
+use yii\base\Event;
 
 /**
  * Poke plugin
@@ -38,7 +43,7 @@ class Poke extends Plugin
 
         // Any code that creates an element query or loads Twig should be deferred until
         // after Craft is fully initialized, to avoid conflicts with other plugins/modules
-        Craft::$app->onInit(function() {
+        Craft::$app->onInit(function () {
             // ...
         });
     }
@@ -58,7 +63,48 @@ class Poke extends Plugin
 
     private function attachEventHandlers(): void
     {
-        // Register event handlers here ...
-        // (see https://craftcms.com/docs/5.x/extend/events.html to get started)
+        Event::on(
+            Entries::class,
+            Entries::EVENT_AFTER_SAVE_SECTION,
+            function (SectionEvent $event) {
+                if ($event->isNew) {
+                    Craft::$app->getSession()->setNotice(
+                        Craft::t(
+                            'poke',
+                            'Remember to update user permissions for the new "{section}" section in Settings → Users',
+                            ['section' => $event->section->name]
+                        )
+                    );
+                }
+            }
+        );
+
+        Event::on(
+            Plugins::class,
+            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
+            function (PluginEvent $event) {
+                Craft::$app->getSession()->setNotice(
+                    Craft::t(
+                        'poke',
+                        'Remember to update user permissions for the "{plugin}" plugin in Settings → Users',
+                        ['plugin' => $event->plugin->name]
+                    )
+                );
+            }
+        );
+
+        Event::on(
+            Plugins::class,
+            Plugins::EVENT_AFTER_ENABLE_PLUGIN,
+            function (PluginEvent $event) {
+                Craft::$app->getSession()->setNotice(
+                    Craft::t(
+                        'poke',
+                        'Remember to update user permissions for the "{plugin}" plugin in Settings → Users',
+                        ['plugin' => $event->plugin->name]
+                    )
+                );
+            }
+        );
     }
 }
