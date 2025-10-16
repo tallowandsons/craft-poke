@@ -56,21 +56,44 @@ class Poke extends Plugin
 
     private function attachEventHandlers(): void
     {
-        Event::on(
-            Entries::class,
-            Entries::EVENT_AFTER_SAVE_SECTION,
-            function (SectionEvent $event) {
-                if ($event->isNew) {
-                    Craft::$app->getSession()->setNotice(
-                        Craft::t(
-                            'poke',
-                            'Remember to update user permissions for the new "{section}" section in Settings → Users',
-                            ['section' => $event->section->name]
-                        )
-                    );
+
+        // Craft 5+ uses Entries::EVENT_AFTER_SAVE_SECTION
+        if (defined(Entries::class . '::EVENT_AFTER_SAVE_SECTION')) {
+            Event::on(
+                Entries::class,
+                Entries::EVENT_AFTER_SAVE_SECTION,
+                function (SectionEvent $event) {
+                    if ($event->isNew) {
+                        Craft::$app->getSession()->setNotice(
+                            Craft::t(
+                                'poke',
+                                'Remember to update user permissions for the new "{section}" section in Settings → Users',
+                                ['section' => $event->section->name]
+                            )
+                        );
+                    }
                 }
-            }
-        );
+            );
+        }
+
+        // Craft 4 uses Sections::EVENT_AFTER_SAVE_SECTION
+        elseif (class_exists(\craft\services\Sections::class) && defined(\craft\services\Sections::class . '::EVENT_AFTER_SAVE_SECTION')) {
+            Event::on(
+                \craft\services\Sections::class,
+                \craft\services\Sections::EVENT_AFTER_SAVE_SECTION,
+                function (SectionEvent $event) {
+                    if ($event->isNew) {
+                        Craft::$app->getSession()->setNotice(
+                            Craft::t(
+                                'poke',
+                                'Remember to update user permissions for the new "{section}" section in Settings → Users',
+                                ['section' => $event->section->name]
+                            )
+                        );
+                    }
+                }
+            );
+        }
 
         Event::on(
             Plugins::class,
