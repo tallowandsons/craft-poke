@@ -1,9 +1,26 @@
 {
     "name": "tallowandsons/craft-poke",
+    "description": "Get a poke from the CMS to remind you to update user permissions after installing a plugin, or creating a new section.",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "tallowandsons",
+        "reminder",
+        "permissions",
+        "poke"
+    ],
     "type": "craft-plugin",
     "license": "proprietary",
+    "homepage": "https://github.com/tallowandsons/craft-poke",
+    "authors": [
+        {
+            "name": "Tallow & Sons",
+            "homepage": "https://github.com/tallowandsons"
+        }
+    ],
     "support": {
-        "email": "support@tallowandsons.com",
         "issues": "https://github.com/tallowandsons/craft-poke/issues?state=open",
         "source": "https://github.com/tallowandsons/craft-poke",
         "docs": "https://github.com/tallowandsons/craft-poke",
@@ -25,8 +42,9 @@
     "extra": {
         "handle": "poke",
         "name": "Poke",
-        "developer": "tallowandsons",
-        "documentationUrl": "https://github.com/tallowandsons/craft-poke",
+        "developer": "Tallow & Sons",
+        "developerUrl": "https://github.com/tallowandsons",
+        "documentationUrl": "https://github.com/tallowandsons/craft-poke#readme",
         "class": "tallowandsons\\poke\\Poke"
     },
     "scripts": {
@@ -37,7 +55,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "8.2"
+            "php": "8.0"
         },
         "allow-plugins": {
             "yiisoft/yii2-composer": true,
