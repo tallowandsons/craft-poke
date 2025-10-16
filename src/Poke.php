@@ -24,7 +24,7 @@ use yii\base\Event;
 class Poke extends Plugin
 {
     public string $schemaVersion = '1.0.0';
-    public bool $hasCpSettings = true;
+    public bool $hasCpSettings = false;
 
     public static function config(): array
     {
@@ -38,14 +38,7 @@ class Poke extends Plugin
     public function init(): void
     {
         parent::init();
-
         $this->attachEventHandlers();
-
-        // Any code that creates an element query or loads Twig should be deferred until
-        // after Craft is fully initialized, to avoid conflicts with other plugins/modules
-        Craft::$app->onInit(function () {
-            // ...
-        });
     }
 
     protected function createSettingsModel(): ?Model
