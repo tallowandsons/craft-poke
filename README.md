@@ -17,7 +17,10 @@ composer require tallowandsons/craft-poke
 ## Requirements
 This plugin supports
 - Craft CMS 5.0.0 or later
+- Craft CMS 4.0.0 or later
 
 ## Credits
 
-Made with care and attention by [Tallow &amp; Sons](https://github.com/tallowandsons)
+Made with care and attention by [Tallow &amp; Sons](https://github.com/tallowandsons).
+
+Thanks to John Baxter from [luckyturnmedia.co.uk](https://luckyturnmedia.co.uk) for the original idea.
