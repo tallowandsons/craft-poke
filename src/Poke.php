@@ -56,6 +56,9 @@ class Poke extends Plugin
 
     private function attachEventHandlers(): void
     {
+        if (Craft::$app->getRequest()->getIsConsoleRequest()) {
+            return;
+        }
 
         // Craft 5+ uses Entries::EVENT_AFTER_SAVE_SECTION
         if (defined(Entries::class . '::EVENT_AFTER_SAVE_SECTION')) {
